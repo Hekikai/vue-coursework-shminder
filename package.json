@@ -3,22 +3,28 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "set PORT=3000 && vue-cli-service serve",
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "axios": "^0.26.1",
     "core-js": "^3.8.3",
     "vue": "^3.2.13",
+    "vue-axios": "^3.4.1",
     "vue-router": "^4.0.3",
-    "vuex": "^4.0.0"
+    "vuex": "^4.0.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
+    "naive-ui": "^2.27.0",
     "sass": "^1.32.7",
-    "sass-loader": "^12.0.0"
+    "sass-loader": "^12.0.0",
+    "vee-validate": "^4.5.10",
+    "vfonts": "^0.0.3"
   },
   "browserslist": [
     "> 1%",
