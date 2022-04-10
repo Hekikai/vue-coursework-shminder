@@ -1,17 +1,15 @@
 <template>
-<n-dialog-provider>
-	<the-login></the-login>
-</n-dialog-provider>
+	<n-config-provider :theme="darkTheme">
+		<n-dialog-provider>
+			<the-login></the-login>
+		</n-dialog-provider>
+	</n-config-provider>
 </template>
 
-<script>
+<script setup>
 import TheLogin from "@/components/TheLogin";
+import { darkTheme } from 'naive-ui';
 
-export default {
-	components: {
-		TheLogin
-	}
-}
 </script>
 
 

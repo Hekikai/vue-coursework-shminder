@@ -7,6 +7,8 @@ export const axiosInstance = axios.create({
 	}
 })
 
-export const getApiErrorText = (error) => {
-	return error?.response?.data?.error || 'Unknown error';
+export const getApiErrorText = (err) => {
+	const error = err?.response?.data?.error;
+	const errorMessage = error[0].toUpperCase() + error.slice(1);
+	return errorMessage || 'Unknown error';
 }

@@ -1,15 +1,42 @@
 <template>
-<n-card>
-	<n-form :model="formValue">
-		<n-form-item label="Username">
-			<n-input v-model:value="formValue.username"></n-input>
-		</n-form-item>
-		<n-form-item label="Password">
-			<n-input v-model:value="formValue.password" type="password"></n-input>
-		</n-form-item>
-	</n-form>
-	<n-button @click="onSubmit">Submit</n-button>
-</n-card>
+	<div class="container">
+		<n-card class="container__card">
+			<n-space :vertical="true">
+				<n-gradient-text
+						style="display: block"
+						:size="24"
+						type="success"
+				>
+					Login Form
+				</n-gradient-text>
+				<n-image
+						width="200"
+						src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+						alt="Login photo"
+						preview-disabled
+				>
+				</n-image>
+			</n-space>
+			<n-form
+					:model="formValue"
+					label-width="auto"
+			>
+				<n-form-item label="Username">
+					<n-input
+							v-model:value="formValue.username"
+							placeholder="Enter your email">
+					</n-input>
+				</n-form-item>
+				<n-form-item label="Password">
+					<n-input
+							v-model:value="formValue.password" type="password"
+							placeholder="Enter your password">
+					</n-input>
+				</n-form-item>
+			</n-form>
+			<n-button @click="onSubmit">Submit</n-button>
+		</n-card>
+	</div>
 </template>
 
 <script setup>
@@ -30,7 +57,7 @@ const formValue = ref({
 const onSubmit = () => {
 	store.dispatch('auth/login', formValue.value).then(
 			() => {
-				router.replace({ path: '/profile' });
+				router.replace({path: '/profile'});
 			},
 			(error) => {
 				dialog.error({
@@ -46,19 +73,14 @@ const onSubmit = () => {
 <style scoped lang="scss">
 
 .container {
-	margin: 0 auto;
+	background-color: black;
+	height: 100vh;
 
 	&__card {
-		margin: 0 auto;
 		text-align: center;
-		padding: 15px;
-	}
-
-	.form-group {
-		padding: 10px;
-		label {
-			margin-right: 15px;
-		}
+		margin: 0 auto;
+		width: 25%;
+		transform: translateY(50%);
 	}
 }
 
