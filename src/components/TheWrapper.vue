@@ -2,6 +2,7 @@
 	<n-card
 			class="container"
 			:title="title ?? ''">
+		<slot></slot>
 	</n-card>
 </template>
 
