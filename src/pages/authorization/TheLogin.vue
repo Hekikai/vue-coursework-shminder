@@ -57,7 +57,7 @@ const formValue = ref({
 const onSubmit = () => {
 	store.dispatch('auth/login', formValue.value).then(
 			() => {
-				router.replace({path: '/profile'});
+				router.replace({path: '/main/profile'});
 			},
 			(error) => {
 				dialog.error({
@@ -74,7 +74,7 @@ const onSubmit = () => {
 
 .container {
 	background-color: black;
-	height: 100vh;
+	height: 100%;
 
 	&__card {
 		text-align: center;
