@@ -1,5 +1,5 @@
 <template>
-	<n-space>
+	<n-space vertical size="large">
 		<n-card>
 			<n-menu mode="horizontal" :options="menuOptions"></n-menu>
 		</n-card>

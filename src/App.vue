@@ -10,8 +10,9 @@
 import { darkTheme } from 'naive-ui';
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import { onMounted, onBeforeUnmount} from "vue";
+import { onMounted, onBeforeUnmount, provide } from "vue";
 import { EventBus } from "@/utils/EventBus";
+import { registeredServices } from "@/services/registeredServices";
 
 const store = useStore();
 const router = useRouter();
@@ -24,6 +25,10 @@ const logOut = () => {
 onMounted(() => EventBus.on('logout', () => logOut()))
 
 onBeforeUnmount(() => EventBus.remove('logout'));
+
+for (const injected of registeredServices) {
+	provide(injected.injectKey, injected.service);
+}
 
 </script>
 

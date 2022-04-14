@@ -1,5 +1,5 @@
 import { createWebHistory, createRouter } from "vue-router";
-import TheLogin from "@/pages/authorization/TheLogin";
+import TheLogin from "@/pages/authorization/TheLoginPage";
 import TheMain from '@/pages/main/TheMain';
 import ProfileWrapper from "@/pages/main/profile/ProfileWrapper";
 import ProfilePage from "@/pages/main/profile/ProfilePage";

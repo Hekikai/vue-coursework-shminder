@@ -8,7 +8,7 @@
 
 <script>
 export default {
-	name: "TheProfileWrapper",
+	name: "TheWrapper",
 	props: {
 		title: String
 	}
@@ -19,7 +19,7 @@ export default {
 
 .container {
 	margin: 0 auto;
-	width: 60%;
+	width: 40%;
 	height: 100%;
 }
 
