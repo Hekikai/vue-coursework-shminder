@@ -24,6 +24,17 @@ class AuthService {
 			localStorage.removeItem('user');
 		})
 	}
+
+	register(credentials) {
+		return axiosInstance.post('/users/registration', credentials).then(
+			response => {
+				TokenService.setUser(response.data);
+				TokenService.updateLocalAccessToken(response.headers[this.AUTH_TOKEN_HEADER]);
+
+				return Promise.resolve(response.data);
+			}
+		)
+	}
 }
 
 export default new AuthService();

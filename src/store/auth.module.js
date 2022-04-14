@@ -10,6 +10,7 @@ const initialState = user
 export const auth = {
 	namespaced: true,
 	state: initialState,
+
 	actions: {
 		login({commit}, user) {
 			return AuthService.login(user).then(
@@ -23,11 +24,25 @@ export const auth = {
 				}
 			);
 		},
+
 		logout({commit}) {
 			AuthService.logout().then(() => {
 				commit('logout');
 			});
 		},
+
+		register({commit}, user) {
+			return AuthService.register(user).then(
+				response => {
+					commit('registerSuccess', response);
+					return Promise.resolve(response);
+				},
+				error => {
+					commit('registerFailure');
+					return Promise.reject(getApiErrorText(error));
+				}
+			)
+		}
 	},
 
 	mutations: {
@@ -43,5 +58,12 @@ export const auth = {
 			state.status.loggedIn = false;
 			state.user = null;
 		},
+		registerSuccess(state, user) {
+			state.user = user;
+		},
+		registerFailure(state) {
+			state.status.loggedIn = false;
+			state.user = null;
+		}
 	}
 }

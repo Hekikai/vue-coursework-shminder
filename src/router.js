@@ -3,6 +3,7 @@ import TheLogin from "@/pages/authorization/TheLoginPage";
 import TheMain from '@/pages/main/TheMain';
 import ProfileWrapper from "@/pages/main/profile/ProfileWrapper";
 import ProfilePage from "@/pages/main/profile/ProfilePage";
+import TheRegistrationPage from "@/pages/registration/TheRegistrationPage";
 
 const routes = [
 	{
@@ -15,6 +16,11 @@ const routes = [
 		name: 'TheLogin',
 		path: '/login',
 		component: TheLogin
+	},
+	{
+		name: 'TheRegistrationPage',
+		path: '/registration',
+		component: TheRegistrationPage
 	},
 	{
 		name: 'TheMain',

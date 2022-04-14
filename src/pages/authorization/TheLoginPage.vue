@@ -35,8 +35,8 @@
 				</n-form-item>
 			</n-form>
 			<div class="container__btns">
-					<n-button @click="handleLogin">Login</n-button>
-					<n-button @click="handleRegistration">Click to register</n-button>
+				<n-button @click="handleLogin">Login</n-button>
+				<n-button @click="handleRegistration">Click to register</n-button>
 			</div>
 		</n-card>
 	</div>
@@ -72,7 +72,7 @@ const handleLogin = () => {
 }
 
 const handleRegistration = () => {
-
+	router.replace({path: '/registration'})
 }
 
 </script>
