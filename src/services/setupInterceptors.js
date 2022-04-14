@@ -5,7 +5,7 @@ import router from "@/router";
 const setup = () => {
 	axiosInstance.interceptors.request.use(
 		config => {
-			const publicPages = ['/security/login', '/security/register'];
+			const publicPages = ['/security/login', '/security/logout'];
 
 			if (!publicPages.includes(config.url)) {
 				const token = TokenService.getLocalAccessToken();

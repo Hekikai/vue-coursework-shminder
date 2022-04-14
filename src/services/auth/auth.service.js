@@ -21,8 +21,11 @@ class AuthService {
 				token: TokenService.getLocalAccessToken()
 			}
 		}).then(() => {
-			localStorage.removeItem('user');
-		})
+				localStorage.removeItem('user');
+			},
+			error => {
+				console.log(error)
+			})
 	}
 
 	register(credentials) {

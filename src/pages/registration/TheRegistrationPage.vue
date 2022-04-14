@@ -4,6 +4,7 @@
 		<n-form
 				ref="formRef"
 				:model="model"
+				:rules="rules"
 				:size="size"
 				label-placement="top"
 				class="container__form"
@@ -30,7 +31,8 @@
 				<n-form-item-gi :span="8" label="Age" path="inputNumberValue">
 					<n-input-number
 							v-model:value="model.ageValue"
-							placeholder="Your age"
+							placeholder="18"
+							min="18"
 					/>
 				</n-form-item-gi>
 				<n-form-item-gi :span="8" label="Email" path="inputValue">
@@ -79,12 +81,23 @@
 							:options="generalOptions"
 					/>
 				</n-form-item-gi>
-				<n-form-item-gi :span="8" label="Select your passions" path="selectValue">
-					<n-select
-							v-model:value="model.passionsValue"
-							placeholder="Locations"
-							:options="generalOptions"
-					/>
+				<n-form-item-gi
+						:span="20"
+						label="Passions"
+						path="passionsValues"
+				>
+					<n-checkbox-group v-model:value="model.passionsValues">
+						<n-space>
+							<n-checkbox
+									v-for="passion in model.passionsValues"
+									:key="passion.id"
+									:value="passion.id"
+									@click="clickMe"
+							>
+								{{ passion.name }}
+							</n-checkbox>
+						</n-space>
+					</n-checkbox-group>
 				</n-form-item-gi>
 				<n-form-item-gi :span="16" label="Tell us about yourself" path="textareaValue">
 					<n-input
@@ -97,17 +110,27 @@
 					/>
 				</n-form-item-gi>
 			</n-grid>
+			<div style="display: flex; justify-content: center">
+				<n-button round type="primary" @click="handleValidate">
+					Register
+				</n-button>
+			</div>
 		</n-form>
 	</div>
 </template>
 
 <script setup>
+import { inject, onMounted, reactive, ref, toRefs } from "vue";
+import { useMessage } from 'naive-ui';
 
-import { ref } from "vue";
+const message = useMessage();
 
 const size = ref('large');
+const formRef = ref(null);
 
-const model = ref({
+const passionsService = inject('passionsService');
+
+const model = reactive({
 	firstNameValue: null,
 	middleNameValue: null,
 	lastNameValue: null,
@@ -117,8 +140,19 @@ const model = ref({
 	phoneValue: null,
 	radioGroupValue: null,
 	locationValue: null,
-	passionsValue: null,
-})
+	passionsValues: null,
+});
+
+const loadPassions = () => {
+	passionsService.getAllPassions().then(response => {
+				// console.log(model.passionsValues);
+				model.passionsValues = response;
+				// console.log(model.passionsValues);
+			}
+	)
+}
+
+onMounted(() => loadPassions());
 
 const generalOptions = ['groode', 'veli good', 'emazing', 'lidiculous'].map(
 		(v) => ({
@@ -126,6 +160,35 @@ const generalOptions = ['groode', 'veli good', 'emazing', 'lidiculous'].map(
 			value: v
 		})
 )
+
+const handleValidate = (e) => {
+	e.preventDefault();
+	formRef.value?.validate((errors) => {
+		if (!errors) {
+			message.success('Valid');
+		} else {
+			console.log(errors);
+			message.error('Invalid');
+		}
+	})
+}
+
+const rules = {
+	firstNameValue: {
+		required: true,
+		trigger: ["blur", "input"],
+		message: 'Please, input value'
+	},
+	middleNameValue: {
+		required: true,
+		trigger: ["blur", "input"],
+		message: 'Please, input value'
+	},
+}
+
+const clickMe =() => {
+	console.log(model.passionsValues)
+}
 
 </script>
 
