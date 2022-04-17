@@ -72,7 +72,7 @@ const handleLogin = () => {
 }
 
 const handleRegistration = () => {
-	router.replace({path: '/registration'})
+	router.push({path: '/registration'});
 }
 
 </script>

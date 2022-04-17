@@ -1,4 +1,9 @@
 <template>
+	<n-image
+			src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+			@click="handleClickProfilePhoto">
+
+	</n-image>
 	<n-list bordered v-if="me">
 		<template #header>
 			Full name: {{ fullName }}
@@ -56,11 +61,14 @@ const me = ref(null);
 const fullName = ref('');
 const passions = ref([]);
 const location = ref(null);
+const profileImage = ref(null);
+
 
 onMounted(() => loadMe());
 
 const loadMe = () => {
 	usersService.getMyData().then(response => {
+				console.log(response)
 				me.value = response;
 
 				fullName.value = produceFullName(me.value.firstName, me.value.middleName,
@@ -77,6 +85,14 @@ const loadMe = () => {
 				})
 			}
 	)
+
+	usersService.getMyProfileImage().then(response => {
+		profileImage.value = response;
+	})
+}
+
+const handleClickProfilePhoto = () => {
+
 }
 
 </script>

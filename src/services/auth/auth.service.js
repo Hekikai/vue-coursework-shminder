@@ -16,12 +16,9 @@ class AuthService {
 	}
 
 	logout() {
-		return axiosInstance.post('/security/logout', {
-			headers: {
-				token: TokenService.getLocalAccessToken()
-			}
-		}).then(() => {
+		return axiosInstance.post('/security/logout').then(() => {
 				localStorage.removeItem('user');
+				TokenService.updateLocalAccessToken(null);
 			},
 			error => {
 				console.log(error)

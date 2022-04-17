@@ -7,7 +7,15 @@ class UsersService {
 	PATH = '/users';
 
 	getMyData() {
-		return handleResponseWithData(axInst.get(`${this.PATH}/me`));
+		return handleResponseWithData(axInst.get(`${ this.PATH }/me`));
+	}
+
+	getMyProfileImage() {
+		return handleResponseWithData(axInst.get(`${ this.PATH }/images`, {
+			headers: {
+				accept: "image/jpeg"
+			}
+		}));
 	}
 }
 

@@ -1,5 +1,7 @@
 import UsersService from "@/services/models/users/users.service";
 import PassionsService from "@/services/models/passions/passions.service";
+import LocationsService from "@/services/models/locations/locations.service";
+import CountriesService from "@/services/models/countries/countries.service";
 
 export const registeredServices = [
 	{
@@ -9,5 +11,13 @@ export const registeredServices = [
 	{
 		injectKey: 'passionsService',
 		service: PassionsService
-	}
+	},
+	{
+		injectKey: 'locationsService',
+		service: LocationsService
+	},
+	{
+		injectKey: 'countriesService',
+		service: CountriesService
+	},
 ]
