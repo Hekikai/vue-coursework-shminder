@@ -11,32 +11,32 @@
 					class="container__form"
 			>
 				<n-grid :span="16" :x-gap="20" :cols="16">
-					<n-form-item-gi :span="8" label="First name" path="inputValue">
+					<n-form-item-gi :span="8" label="First name" path="firstNameValue">
 						<n-input
 								v-model:value="model.firstNameValue"
 								placeholder="Enter your first name"
 						/>
 					</n-form-item-gi>
-					<n-form-item-gi :span="8" label="Middle name" path="inputValue">
+					<n-form-item-gi :span="8" label="Middle name" path="middleNameValue">
 						<n-input
 								v-model:value="model.middleNameValue"
 								placeholder="Enter your middle name"
 						/>
 					</n-form-item-gi>
-					<n-form-item-gi :span="8" label="Last name" path="inputValue">
+					<n-form-item-gi :span="8" label="Last name" path="lastNameValue">
 						<n-input
 								v-model:value="model.lastNameValue"
 								placeholder="Enter your last name"
 						/>
 					</n-form-item-gi>
-					<n-form-item-gi :span="8" label="Age" path="inputNumberValue">
+					<n-form-item-gi :span="8" label="Age" path="ageValue">
 						<n-input-number
 								v-model:value="model.ageValue"
 								placeholder="18"
 								min="18"
 						/>
 					</n-form-item-gi>
-					<n-form-item-gi :span="8" label="Email" path="inputValue">
+					<n-form-item-gi :span="8" label="Email" path="emailValue">
 						<n-input
 								v-model:value="model.emailValue"
 								type="email"
@@ -61,22 +61,23 @@
 							</n-space>
 						</n-radio-group>
 					</n-form-item-gi>
-					<n-form-item-gi :span="8" label="Password" path="inputValue">
+					<n-form-item-gi :span="8" label="Password" path="passwordValue">
 						<n-input
 								v-model:value="model.passwordValue"
 								type="password"
 								placeholder="Enter your password"
 						/>
 					</n-form-item-gi>
-					<n-form-item-gi :span="8" label="Phone" path="inputValue">
+					<n-form-item-gi :span="8" label="Phone" path="phoneValue">
 						<n-input
 								v-model:value="model.phoneValue"
 								type="tel"
 								placeholder="Enter your phone"
 						/>
 					</n-form-item-gi>
-					<n-form-item-gi :span="8" label="Select your country" path="selectValue">
+					<n-form-item-gi :span="8" label="Select your country" path="countryValue">
 						<n-select
+								v-model:value="model.countryValue"
 								placeholder="Country"
 								filterable
 								:reset-menu-on-options-change="false"
@@ -86,7 +87,7 @@
 								@update:value="handleSelectCountry"
 						/>
 					</n-form-item-gi>
-					<n-form-item-gi :span="8" label="Select your country location" path="selectValue">
+					<n-form-item-gi :span="8" label="Select your country location" path="locationValue">
 						<n-select
 								v-model:value="model.locationValue"
 								placeholder="Location"
@@ -101,14 +102,11 @@
 							path="passionsValues"
 					>
 						<n-checkbox-group v-model:value="model.passionsValues">
-							<n-space>
+							<n-space item-style="display: flex;">
 								<n-checkbox
-										v-for="passion in model.passionsValues"
-										:key="passion.id"
-										:value="passion.id"
-										@click="clickMe"
-								>
-									{{ passion.name }}
+										v-for="passion in passionsRef"
+										:value="passion.value"
+										:label="passion.label">
 								</n-checkbox>
 							</n-space>
 						</n-checkbox-group>
@@ -135,7 +133,7 @@
 </template>
 
 <script setup>
-import { inject, onMounted, reactive, ref } from "vue";
+import { inject, onMounted, reactive, ref, watchEffect } from "vue";
 import { useMessage } from 'naive-ui';
 
 const message = useMessage();
@@ -148,9 +146,10 @@ const size = ref('large');
 const formRef = ref(null);
 const locationsRef = ref([]);
 const countriesRef = ref([]);
+const passionsRef = ref([]);
 
 
-const model = reactive({
+const model = ref({
 	firstNameValue: null,
 	middleNameValue: null,
 	lastNameValue: null,
@@ -164,14 +163,30 @@ const model = reactive({
 	locationValue: null,
 });
 
+watchEffect(() => {
+	console.log(model.value.countryValue)
+	console.log(model.value.passionsValues)
+})
+
 onMounted(() => mountedFetch());
 
 const mountedFetch = () => {
 	Promise.allSettled([
-		// loadPassions(),
+		loadPassions(),
 		loadCountries()
 	])
-}
+};
+
+const loadPassions = () => {
+	passionsService.getAllPassions().then(response => {
+		response.forEach((passion) => {
+			passionsRef.value.push({
+				label: passion.name,
+				value: passion.id
+			})
+		})
+	})
+};
 
 const loadCountries = () => {
 	countriesService.getPaginatedCountries().then(response => {
@@ -182,37 +197,14 @@ const loadCountries = () => {
 			})
 		})
 	})
-}
-
-const loadLocationsByCountry = (countryName) => {
-	locationsService.getLocationsBySearchString(countryName).then(response => {
-		console.log(response);
-		locationsRef.value = response.map((country) => {
-			return {
-				label: country.city,
-				value: country.city
-			}
-		})
-	})
-}
-
-// const loadLocations = () => {
-// 	locationsService.get
-// }
-
-// const loadPassions = () => {
-// 	passionsService.getAllPassions().then(response => {
-// 				model.passionsValues = response;
-// 			}
-// 	)
-// }
+};
 
 const handleScrollCountries = (event) => {
 	const currentTarget = event.currentTarget;
 	if (currentTarget.scrollTop + currentTarget.offsetHeight >= currentTarget.scrollHeight) {
 		loadCountries();
 	}
-}
+};
 
 const handleSearchingCountry = (searchString) => {
 	countriesService.getCountriesBySearchString(searchString).then(response => {
@@ -224,15 +216,32 @@ const handleSearchingCountry = (searchString) => {
 				})
 			}
 	)
-}
-
-const handleSearchingLocation = (searchString) => {
-
-}
+};
 
 const handleSelectCountry = (countryName) => {
 	loadLocationsByCountry(countryName);
-}
+};
+
+const loadLocationsByCountry = (countryName) => {
+	locationsService.getLocationsByCountryName(countryName).then(response => {
+		appendLocations(response);
+	})
+};
+
+const handleSearchingLocation = (searchString) => {
+	locationsService.getLocationsBySearchString(searchString).then(response => {
+		appendLocations(response);
+	})
+};
+
+const appendLocations = (countries) => {
+	locationsRef.value = countries.map((country) => {
+		return {
+			label: country.city,
+			value: country.city
+		}
+	})
+};
 
 const handleValidate = (e) => {
 	e.preventDefault();
@@ -246,22 +255,17 @@ const handleValidate = (e) => {
 	})
 };
 
-const rules = {
-	firstNameValue: {
-		required: true,
-		trigger: ["blur", "input"],
-		message: 'Please, input value'
-	},
-	middleNameValue: {
-		required: true,
-		trigger: ["blur", "input"],
-		message: 'Please, input value'
-	},
-}
+const validateValue = () => ({
+	required: true,
+	trigger: ["blur", "input"],
+	message: 'Please, input value'
+})
 
-const clickMe = () => {
-	console.log(model.passionsValues)
-}
+const rules = {
+	firstNameValue: validateValue(),
+	middleNameValue: validateValue(),
+	ageValue: validateValue()
+};
 
 </script>
 
