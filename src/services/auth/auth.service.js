@@ -17,8 +17,23 @@ class AuthService {
 
 	logout() {
 		return axiosInstance.post('/security/logout').then(() => {
-			localStorage.removeItem('user');
-		})
+				localStorage.removeItem('user');
+				TokenService.updateLocalAccessToken(null);
+			},
+			error => {
+				console.log(error)
+			})
+	}
+
+	register(credentials) {
+		return axiosInstance.post('/users/registration', credentials).then(
+			response => {
+				TokenService.setUser(response.data);
+				TokenService.updateLocalAccessToken(response.headers[this.AUTH_TOKEN_HEADER]);
+
+				return Promise.resolve(response.data);
+			}
+		)
 	}
 }
 

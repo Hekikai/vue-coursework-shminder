@@ -34,7 +34,10 @@
 					</n-input>
 				</n-form-item>
 			</n-form>
-			<n-button @click="onSubmit">Submit</n-button>
+			<div class="container__btns">
+				<n-button @click="handleLogin">Login</n-button>
+				<n-button @click="handleRegistration">Click to register</n-button>
+			</div>
 		</n-card>
 	</div>
 </template>
@@ -54,10 +57,10 @@ const formValue = ref({
 	password: '',
 })
 
-const onSubmit = () => {
+const handleLogin = () => {
 	store.dispatch('auth/login', formValue.value).then(
 			() => {
-				router.replace({path: '/profile'});
+				router.replace({path: '/main/profile'});
 			},
 			(error) => {
 				dialog.error({
@@ -68,19 +71,30 @@ const onSubmit = () => {
 	)
 }
 
+const handleRegistration = () => {
+	router.push({path: '/registration'});
+}
+
 </script>
 
 <style scoped lang="scss">
 
 .container {
 	background-color: black;
-	height: 100vh;
+	height: 100%;
 
 	&__card {
 		text-align: center;
 		margin: 0 auto;
 		width: 25%;
 		transform: translateY(50%);
+	}
+
+	&__btns {
+		padding: 5px;
+		display: flex;
+		justify-content: center;
+		gap: 20px;
 	}
 }
 
