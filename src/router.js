@@ -14,17 +14,17 @@ const routes = [
 	},
 	{
 		name: 'TheLogin',
-		path: '/login',
+		path: '/vue-coursework-shminder/login',
 		component: TheLogin
 	},
 	{
 		name: 'TheRegistrationPage',
-		path: '/registration',
+		path: '/vue-coursework-shminder/registration',
 		component: TheRegistrationPage
 	},
 	{
 		name: 'TheMain',
-		path: '/main',
+		path: '/vue-coursework-shminder/main',
 		component: TheMain,
 		children: [
 			{
@@ -49,12 +49,12 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-	const publicPages = ['/login', '/registration'];
+	const publicPages = ['/vue-coursework-shminder/login', '/vue-coursework-shminder/registration'];
 	const authRequired = !publicPages.includes(to.path);
 	const loggedIn = localStorage.getItem('user');
 
 	if (authRequired && !loggedIn) {
-		next('/login');
+		next('/vue-coursework-shminder/login');
 	} else {
 		next();
 	}

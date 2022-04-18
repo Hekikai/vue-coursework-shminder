@@ -72,7 +72,7 @@ const handleLogin = () => {
 }
 
 const handleRegistration = () => {
-	router.push({path: '/registration'});
+	router.push({path: '/vue-coursework-shminder/registration'});
 }
 
 </script>

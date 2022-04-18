@@ -22,7 +22,7 @@ const setup = () => {
 		error => {
 			if (error?.response?.status === 401) {
 				router.replace({
-					path: '/login'
+					path: '/vue-coursework-shminder/login'
 				})
 			}
 
