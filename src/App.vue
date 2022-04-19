@@ -13,7 +13,7 @@ import { darkTheme } from 'naive-ui';
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import { onMounted, onBeforeUnmount, provide } from "vue";
-import { EventBus } from "@/utils/EventBus";
+import { eventBus } from "@/utils/eventBus";
 import { registeredServices } from "@/services/registeredServices";
 
 const store = useStore();
@@ -24,9 +24,9 @@ const logOut = () => {
 	router.push({name: 'TheLogin'});
 }
 
-onMounted(() => EventBus.on('logout', () => logOut()))
+onMounted(() => eventBus.on('logout', () => logOut()))
 
-onBeforeUnmount(() => EventBus.remove('logout'));
+onBeforeUnmount(() => eventBus.remove('logout'));
 
 for (const injected of registeredServices) {
 	provide(injected.injectKey, injected.service);

@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import { EventBus } from "@/utils/EventBus";
+import { eventBus } from "@/utils/eventBus";
 import { RouterLink } from 'vue-router';
 import { h, ref } from "vue";
 import { NButton } from "naive-ui";
@@ -34,7 +34,7 @@ const options = menuLinks.map(name => {
 options.push({
 	label: () => h(NButton, {
 		onClick: () => {
-			EventBus.dispatch('logout');
+			eventBus.dispatch('logout');
 		}
 	}, {
 		default: () => 'Logout'

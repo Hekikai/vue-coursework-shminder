@@ -60,7 +60,7 @@ const formValue = ref({
 const handleLogin = () => {
 	store.dispatch('auth/login', formValue.value).then(
 			() => {
-				router.replace({path: '/main/profile'});
+				router.replace({path: '/vue-coursework-shminder/main/profile'});
 			},
 			(error) => {
 				dialog.error({
