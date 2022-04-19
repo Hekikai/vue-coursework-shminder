@@ -17,6 +17,11 @@ class UsersService {
 			}
 		}));
 	}
+
+	registerUser(dto) {
+		return handleResponseWithData(axInst.post(`${this.PATH}/registration`, dto));
+	}
+
 }
 
 export default new UsersService();
