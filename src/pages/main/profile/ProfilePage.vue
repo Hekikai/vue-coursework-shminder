@@ -17,15 +17,11 @@
 			<span>{{ me.about }}</span>
 			<br>
 			Age:
-			<span>{{ me.age }}</span>
+			<span>{{ produceAge(me.dateOfBirth) }}</span>
 			<br>
 			Gender:
 			<span>{{ me.gender }}</span>
 			<br>
-			Roles:
-			<n-thing v-for="role in me.roles">
-				{{ role.name }}
-			</n-thing>
 		</template>
 		<n-list-item>
 			<n-thing title="Location" v-if="location">
@@ -38,7 +34,7 @@
 			<n-thing title="Passions">
 				<p v-for="passion in passions"
 				>
-					{{ passion.name }} (total users count: {{ passion.totalUsersCount }})
+					{{ passion.name }}
 				</p>
 			</n-thing>
 		</n-list-item>
@@ -50,6 +46,7 @@ import { ref, inject, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useDialog } from "naive-ui";
 import { produceFullName } from "@/utils/produceFullName";
+import { produceAge } from "@/utils/produceAge";
 
 const store = useStore();
 const dialog = useDialog();
@@ -68,11 +65,10 @@ onMounted(() => loadMe());
 
 const loadMe = () => {
 	usersService.getMyData().then(response => {
-				console.log(response)
 				me.value = response;
+				console.log(me.value);
 
-				fullName.value = produceFullName(me.value.firstName, me.value.middleName,
-						me.value.lastName);
+				fullName.value = produceFullName(me.value.firstName, me.value.lastName, me.value.middleName);
 
 				passions.value = me.value.passions;
 
