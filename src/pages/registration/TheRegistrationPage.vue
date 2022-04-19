@@ -17,16 +17,16 @@
 								placeholder="Enter your first name"
 						/>
 					</n-form-item-gi>
-					<n-form-item-gi :span="8" label="Middle name" path="middleName">
-						<n-input
-								v-model:value="model.middleName"
-								placeholder="Enter your middle name"
-						/>
-					</n-form-item-gi>
 					<n-form-item-gi :span="8" label="Last name" path="lastName">
 						<n-input
 								v-model:value="model.lastName"
 								placeholder="Enter your last name"
+						/>
+					</n-form-item-gi>
+					<n-form-item-gi :span="8" label="Middle name" path="middleName">
+						<n-input
+								v-model:value="model.middleName"
+								placeholder="Enter your middle name"
 						/>
 					</n-form-item-gi>
 					<n-form-item-gi :span="8" label="Date of birth" path="dateOfBirth">
@@ -124,12 +124,19 @@
 						/>
 					</n-form-item-gi>
 				</n-grid>
-				<div style="display: flex; justify-content: center">
+				<div style="display: flex; justify-content: center; align-items: center">
 					<n-button
 							round
 							type="primary"
 							@click="handleValidate">
 						Register
+					</n-button>
+					<n-button
+							round
+							type="primary"
+							style="margin-left: 25px"
+							@click="router.go(-1);">
+						Go back
 					</n-button>
 				</div>
 			</n-form>
@@ -139,7 +146,9 @@
 
 <script setup>
 import { inject, onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
 import { useMessage } from 'naive-ui';
+
 import {
 	validatedValue,
 	validateAge,
@@ -152,6 +161,7 @@ import {
 } from "@/utils/validators";
 
 const message = useMessage();
+const router = useRouter();
 
 const locationsService = inject('locationsService');
 const passionsService = inject('passionsService');
@@ -170,9 +180,9 @@ const model = ref({
 	middleName: 'Kolesnikov',
 	lastName: 'xd',
 	dateOfBirth: '2004-01-01',
-	email: 'artemstoun@mail.ru',
+	email: 'frontend@mail.ru',
 	password: 'Aaaaaaaaa2',
-	phone: '+79023433935',
+	phone: '9023433935',
 	gender: null,
 	country: null,
 	passionsIds: [],
@@ -274,7 +284,7 @@ const appendLocations = (countries) => {
 
 const rules = {
 	firstName: validatedValue('first name'),
-	middleName: validatedValue('middle name'),
+	lastName: validatedValue('last name'),
 	age: validateAge(),
 	email: validateEmail(),
 	gender: validatedValue('gender', 'select'),
@@ -293,17 +303,21 @@ const rules = {
 .container {
 
 	margin: 0 auto;
+	width: 100%;
 	padding: 50px;
-	width: auto;
 
 	h1 {
 		text-align: center;
-		margin-bottom: 1em;
+		margin-bottom: 0.5em;
+	}
+
+	&__card {
+		max-width: 45%;
+		margin: 0 auto;
 	}
 
 	&__form {
-		margin: 0 auto;
-		width: 80%;
+		padding: 1em;
 	}
 }
 </style>
