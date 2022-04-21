@@ -23,6 +23,7 @@
 			>
 				<n-form-item label="Username">
 					<n-input
+							autofocus
 							v-model:value="formValue.username"
 							placeholder="Enter your email">
 					</n-input>
