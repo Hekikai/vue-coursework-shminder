@@ -1,6 +1,5 @@
 import {
 	handleResponseWithData,
-	handleResponseWithoutData,
 	axiosInstance as axInst
 } from "@/services/api";
 

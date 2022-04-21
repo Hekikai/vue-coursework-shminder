@@ -1,4 +1,7 @@
-import { handleResponseWithData, axiosInstance as axInst } from "@/services/api";
+import {
+	handleResponseWithData,
+	axiosInstance as axInst
+} from "@/services/api";
 
 class CountriesService {
 	PATH = '/countries';
