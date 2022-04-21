@@ -13,6 +13,7 @@
 				<n-grid :span="16" :x-gap="20" :cols="16">
 					<n-form-item-gi :span="8" label="First name" path="firstName">
 						<n-input
+								autofocus
 								v-model:value="model.firstName"
 								placeholder="Enter your first name"
 						/>
@@ -116,6 +117,7 @@
 					<n-form-item-gi :span="16" label="Tell us about yourself" path="about">
 						<n-input
 								placeholder="Something about you"
+								v-model:value="model.about"
 								type="textarea"
 								:autosize="{
             minRows: 1,
@@ -148,6 +150,7 @@
 import { inject, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useMessage } from 'naive-ui';
+import { useDialog } from "naive-ui";
 
 import {
 	validatedValue,
@@ -162,6 +165,7 @@ import {
 
 const message = useMessage();
 const router = useRouter();
+const dialog = useDialog();
 
 const locationsService = inject('locationsService');
 const passionsService = inject('passionsService');
@@ -178,16 +182,16 @@ const passionsRef = ref([]);
 const model = ref({
 	firstName: 'Artem',
 	middleName: 'Kolesnikov',
-	lastName: 'xd',
+	lastName: 'Sergeevich',
 	dateOfBirth: '2004-01-01',
 	email: 'frontend@mail.ru',
-	password: 'Aaaaaaaaa2',
+	password: 'Aaaaaaa1',
 	phone: '9023433935',
 	gender: null,
 	country: null,
 	passionsIds: [],
 	locationId: null,
-	about: null
+	about: 'Something about me to have the mock data'
 });
 
 onMounted(() => mountedFetch());
@@ -262,9 +266,12 @@ const handleValidate = (e) => {
 		if (!errors) {
 			usersService.registerUser(model.value).then(response => {
 				message.success('Valid');
-			}).catch(e => {
-				console.log(e);
-				message.error('Invalid registration');
+				router.replace({path: '/vue-coursework-shminder/login'})
+			}).catch(error => {
+				dialog.error({
+					title: 'Failed to register',
+					content: error
+				})
 			})
 		} else {
 			console.log(errors);
