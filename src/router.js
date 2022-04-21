@@ -4,8 +4,8 @@ import TheMain from '@/pages/main/TheMain';
 import ProfileWrapper from "@/pages/main/profile/ProfilePageWrapper";
 import ProfilePage from "@/pages/main/profile/ProfilePage";
 import TheRegistrationPage from "@/pages/registration/TheRegistrationPage";
-import TheStatisticPage from "@/pages/statistic/TheStatisticPage";
-import TheStatisticPageWrapper from "@/pages/statistic/TheStatisticPageWrapper";
+import TheStatisticPage from "@/pages/statistic/StatisticPage";
+import StatisticPageWrapper from "@/pages/statistic/StatisticPageWrapper";
 
 const routes = [
 	{
@@ -42,7 +42,7 @@ const routes = [
 			},
 			{
 				path: 'Statistic',
-				component: TheStatisticPageWrapper,
+				component: StatisticPageWrapper,
 				children: [
 					{
 						name: 'Statistic',

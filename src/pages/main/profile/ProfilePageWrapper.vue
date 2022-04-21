@@ -6,7 +6,7 @@
 
 <script setup>
 
-import TheWrapper from "@/components/TheWrapper";
+import TheWrapper from "@/components/VueWrapper";
 
 </script>
 

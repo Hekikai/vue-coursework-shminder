@@ -19,7 +19,8 @@
 					@update:value="updateValue(activeKey)"
 			/>
 		</n-layout-sider>
-		<span>{{ activeKey }}</span>
+		<slot>
+		</slot>
 	</n-layout>
 </template>
 
@@ -32,6 +33,8 @@ import {
 	BusinessOutline as CountryIcon
 } from "@vicons/ionicons5";
 
+const emit = defineEmits(['selectOption']);
+
 const renderIcon = (icon) => {
 	return () => h(NIcon, null, {default: () => h(icon)});
 }
@@ -39,9 +42,7 @@ const renderIcon = (icon) => {
 const activeKey = ref(null);
 const collapsed = ref(false);
 
-const updateValue = (key) => {
-	console.log(key);
-}
+const updateValue = (key) => emit('selectOption', key);
 
 const menuOptions = [
 	{
