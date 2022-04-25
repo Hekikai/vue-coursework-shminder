@@ -32,14 +32,14 @@ import {
 	HappyOutline as PassionIcon,
 	BusinessOutline as CountryIcon
 } from "@vicons/ionicons5";
+
 import {
 	CountriesTab,
 	LocationsTab,
 	MaxPassionsTab,
 	PassionsByCountryTab,
 	PassionsTab
-} from
-			'./components/index';
+} from './components/index';
 
 const emit = defineEmits(['selectTab']);
 

@@ -30,22 +30,22 @@ const routes = [
 		component: TheMain,
 		children: [
 			{
-				path: 'Profile',
+				path: 'profile',
 				component: ProfileWrapper,
 				children: [
 					{
-						name: 'Profile',
+						name: 'profile',
 						path: '',
 						component: ProfilePage
 					},
 				]
 			},
 			{
-				path: 'Statistic',
+				path: 'statistic',
 				component: StatisticPageWrapper,
 				children: [
 					{
-						name: 'Statistic',
+						name: 'statistic',
 						path: '',
 						component: TheStatisticPage
 					},

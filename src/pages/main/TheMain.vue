@@ -16,7 +16,7 @@ import { RouterLink } from 'vue-router';
 import { h, ref } from "vue";
 import { NButton } from "naive-ui";
 
-const menuLinks = ['Profile', 'Statistic'];
+const menuLinks = ['profile', 'statistic'];
 
 const options = menuLinks.map(name => {
 	return {
@@ -26,10 +26,10 @@ const options = menuLinks.map(name => {
 						params: {
 							lang: 'en-us'
 						}
-					}
+					},
 				},
 				{
-					default: () => name
+					default: () => name[0].toUpperCase() + name.slice(1)
 				}
 		),
 		key: name,
