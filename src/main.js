@@ -14,7 +14,6 @@ import setupInterceptors from "@/services/setupInterceptors";
 
 setupInterceptors();
 const app = createApp(App);
-
 app.use(VueAxios, axios);
 app.use(store);
 app.use(router);

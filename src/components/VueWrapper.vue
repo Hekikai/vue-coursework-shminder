@@ -1,6 +1,7 @@
 <template>
 	<n-card
 			class="container"
+			:style="styleObject"
 			:title="title ?? ''">
 		<slot></slot>
 	</n-card>
@@ -10,7 +11,16 @@
 export default {
 	name: "TheWrapper",
 	props: {
-		title: String
+		title: String,
+		width: Number
+	},
+	computed: {
+		styleObject() {
+			return {
+				width: `${this.width}%`
+			}
+		}
+
 	}
 }
 </script>
@@ -19,7 +29,6 @@ export default {
 
 .container {
 	margin: 0 auto;
-	width: 40%;
 	height: 100%;
 }
 

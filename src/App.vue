@@ -34,7 +34,6 @@ for (const injected of registeredServices) {
 
 </script>
 
-
 <style lang="scss">
 
 </style>

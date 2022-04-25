@@ -1,7 +1,10 @@
 <template>
 	<n-space vertical size="large">
 		<n-card>
-			<n-menu mode="horizontal" :options="menuOptions"></n-menu>
+			<n-menu
+					mode="horizontal"
+					:options="menuOptions">
+			</n-menu>
 		</n-card>
 		<router-view></router-view>
 	</n-space>
@@ -13,7 +16,7 @@ import { RouterLink } from 'vue-router';
 import { h, ref } from "vue";
 import { NButton } from "naive-ui";
 
-const menuLinks = ['profile'];
+const menuLinks = ['Profile', 'Statistic'];
 
 const options = menuLinks.map(name => {
 	return {
@@ -25,7 +28,9 @@ const options = menuLinks.map(name => {
 						}
 					}
 				},
-				{default: () => name}
+				{
+					default: () => name
+				}
 		),
 		key: name,
 	}
