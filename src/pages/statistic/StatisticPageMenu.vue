@@ -33,14 +33,6 @@ import {
 	BusinessOutline as CountryIcon
 } from "@vicons/ionicons5";
 
-import {
-	CountriesTab,
-	LocationsTab,
-	MaxPassionsTab,
-	PassionsByCountryTab,
-	PassionsTab
-} from './components/index';
-
 const emit = defineEmits(['selectTab']);
 
 const renderIcon = (icon) => {
@@ -55,27 +47,36 @@ const updateTab = (tab) => emit('selectTab', tab);
 const menuOptions = [
 	{
 		label: "Countries",
-		key: markRaw(CountriesTab),
+		// key: markRaw(CountriesTab),
+		key: 0,
 		icon: renderIcon(CountryIcon),
 	},
 	{
 		label: "Passions",
-		key: markRaw(PassionsTab),
+		// key: markRaw(PassionsTab),
+		key: 1,
+
 		icon: renderIcon(PassionIcon),
 	},
 	{
 		label: "Passions by country",
-		key: markRaw(PassionsByCountryTab),
+		// key: markRaw(PassionsByCountryTab),
+		key: 2,
+
 		icon: renderIcon(PassionIcon),
 	},
 	{
 		label: "Max passions by countries",
-		key: markRaw(MaxPassionsTab),
+		// key: markRaw(MaxPassionsTab),
+		key: 3,
+
 		icon: renderIcon(PassionIcon),
 	},
 	{
 		label: "Locations",
-		key: markRaw(LocationsTab),
+		// key: markRaw(LocationsTab),
+		key: 4,
+
 		icon: renderIcon(LocationIcon),
 	},
 ]

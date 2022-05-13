@@ -1,11 +1,13 @@
 import { createWebHistory, createRouter } from "vue-router";
 import TheLogin from "@/pages/authorization/TheLoginPage";
 import TheMain from '@/pages/main/TheMain';
-import ProfileWrapper from "@/pages/main/profile/ProfilePageWrapper";
+import ProfilePageWrapper from "@/pages/main/profile/ProfilePageWrapper";
 import ProfilePage from "@/pages/main/profile/ProfilePage";
 import TheRegistrationPage from "@/pages/registration/TheRegistrationPage";
 import TheStatisticPage from "@/pages/statistic/StatisticPage";
 import StatisticPageWrapper from "@/pages/statistic/StatisticPageWrapper";
+import HomePageWrapper from "@/pages/home/HomePageWrapper";
+import HomePage from "@/pages/home/HomePage";
 
 const routes = [
 	{
@@ -30,8 +32,20 @@ const routes = [
 		component: TheMain,
 		children: [
 			{
+				path: 'home',
+				component: HomePageWrapper,
+				children: [
+					{
+						name: 'home',
+						path: '',
+						component: HomePage
+					}
+				]
+			},
+
+			{
 				path: 'profile',
-				component: ProfileWrapper,
+				component: ProfilePageWrapper,
 				children: [
 					{
 						name: 'profile',

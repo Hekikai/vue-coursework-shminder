@@ -19,7 +19,25 @@ class UsersService {
 	}
 
 	registerUser(dto) {
-		return handleResponseWithData(axInst.post(`${this.PATH}/registration`, dto));
+		return handleResponseWithData(axInst.post(`${ this.PATH }/registration`, dto));
+	}
+
+	getUsers(genderToSearch) {
+		return handleResponseWithData(axInst.get(`${ this.PATH }/?gender=${ genderToSearch }`));
+	}
+
+	likeUser(id) {
+		return handleResponseWithData(axInst.post(`${ this.PATH }/likes`, {
+			victimId: id
+		}))
+	}
+
+	unlikeUser(id) {
+		return handleResponseWithData(axInst.delete(`${ this.PATH }/likes`, {
+			data: {
+				victimId: id
+			}
+		}))
 	}
 
 }

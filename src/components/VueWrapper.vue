@@ -9,15 +9,15 @@
 
 <script>
 export default {
-	name: "TheWrapper",
+	name: "VueWrapper",
 	props: {
 		title: String,
-		width: Number
+		width: Number,
 	},
 	computed: {
 		styleObject() {
 			return {
-				width: `${this.width}%`
+				width: `${this.width}%`,
 			}
 		}
 

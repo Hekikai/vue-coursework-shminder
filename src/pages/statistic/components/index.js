@@ -5,10 +5,10 @@ import PassionsByCountryTab from "@/pages/statistic/components/PassionsByCountry
 import PassionsTab from "@/pages/statistic/components/PassionsTab";
 
 
-export {
+export default [
 	CountriesTab,
 	LocationsTab,
 	MaxPassionsTab,
 	PassionsByCountryTab,
 	PassionsTab
-}
+]

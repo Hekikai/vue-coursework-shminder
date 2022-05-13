@@ -1,17 +1,20 @@
 <template>
-	<the-statistic-page-menu @selectTab="handleSelectOption">
+	<statistic-page-menu @selectTab="handleSelectOption">
 		<keep-alive>
 			<component :is="activeTab"/>
 		</keep-alive>
-	</the-statistic-page-menu>
+	</statistic-page-menu>
 </template>
 
 <script setup>
-import TheStatisticPageMenu from './StatisticPageMenu';
+import StatisticPageMenu from './StatisticPageMenu';
 import { ref } from "vue";
+import tabs from './components/index';
 
 const activeTab = ref(null);
-const handleSelectOption = (tabToDisplay) => activeTab.value = tabToDisplay;
+const handleSelectOption = (tabIndex) => {
+	activeTab.value = tabs[tabIndex]
+};
 
 </script>
 

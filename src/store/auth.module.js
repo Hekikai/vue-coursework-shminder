@@ -1,11 +1,22 @@
 import AuthService from "@/services/auth/auth.service";
 import { getApiErrorText } from "@/services/api";
+import TokenService from "@/services/auth/token.service.js"
 
-const user = JSON.parse(localStorage.getItem('user'));
+const user = TokenService.getUser();
 
 const initialState = user
-	? {status: {loggedIn: true}, user}
-	: {status: {loggedIn: false}, user: null};
+	? {
+		status: {
+			loggedIn: true
+		},
+		user
+	}
+	: {
+		status: {
+			loggedIn: false
+		},
+		user: null
+	};
 
 export const auth = {
 	namespaced: true,
