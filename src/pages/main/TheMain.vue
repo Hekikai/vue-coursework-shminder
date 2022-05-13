@@ -1,13 +1,11 @@
 <template>
-	<n-space vertical size="large">
-		<n-card>
-			<n-menu
-					mode="horizontal"
-					:options="menuOptions">
-			</n-menu>
-		</n-card>
-		<router-view></router-view>
-	</n-space>
+	<n-card class="header">
+		<n-menu
+				mode="horizontal"
+				:options="menuOptions">
+		</n-menu>
+	</n-card>
+	<router-view></router-view>
 </template>
 
 <script setup>
@@ -16,13 +14,13 @@ import { RouterLink } from 'vue-router';
 import { h, ref } from "vue";
 import { NButton } from "naive-ui";
 
-const menuLinks = ['profile', 'statistic'];
+const menuLinks = ['home', 'profile', 'statistic'];
 
 const options = menuLinks.map(name => {
 	return {
 		label: () => h(RouterLink, {
 					to: {
-						name: name,
+						name,
 						params: {
 							lang: 'en-us'
 						}
@@ -50,6 +48,11 @@ const menuOptions = ref(options);
 
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+.header {
+	position: sticky;
+	top: 0;
+	z-index: 1;
+	margin-bottom: 20px;
+}
 </style>

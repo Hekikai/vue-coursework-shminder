@@ -10,16 +10,34 @@ class UsersService {
 		return handleResponseWithData(axInst.get(`${ this.PATH }/me`));
 	}
 
-	getMyProfileImage() {
-		return handleResponseWithData(axInst.get(`${ this.PATH }/images`, {
-			headers: {
-				accept: "image/jpeg"
+	registerUser(dto) {
+		return handleResponseWithData(axInst.post(`${ this.PATH }/registration`, dto));
+	}
+
+	getUsers(genderToSearch) {
+		return handleResponseWithData(axInst.get(`${ this.PATH }/`, {
+			params: {
+				gender: genderToSearch
 			}
 		}));
 	}
 
-	registerUser(dto) {
-		return handleResponseWithData(axInst.post(`${this.PATH}/registration`, dto));
+	likeUser(id) {
+		return handleResponseWithData(axInst.post(`${ this.PATH }/likes`, {
+			victimId: id
+		}))
+	}
+
+	unlikeUser(id) {
+		return handleResponseWithData(axInst.delete(`${ this.PATH }/likes`, {
+			data: {
+				victimId: id
+			}
+		}))
+	}
+
+	getLikedUsers() {
+		return handleResponseWithData(axInst.get(`${this.PATH}/likes/from`));
 	}
 
 }

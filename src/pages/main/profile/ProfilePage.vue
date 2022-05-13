@@ -1,9 +1,13 @@
 <template>
-	<n-image
-			src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-			@click="handleClickProfilePhoto">
-
-	</n-image>
+	<n-spin v-if="!userImage" size="large"/>
+		<n-image
+				v-else
+				:src="userImage"
+				object-fit="cover"
+				width="400"
+				height="200"
+				alt="Profile photo">
+		</n-image>
 	<n-list bordered v-if="me">
 		<template #header>
 			Full name: {{ fullName }}
@@ -12,7 +16,7 @@
 			<br>
 			Phone: {{ me.phone }}
 		</template>
-		<template #footer>
+		<n-list-item>
 			About:
 			<span>{{ me.about }}</span>
 			<br>
@@ -22,7 +26,7 @@
 			Gender:
 			<span>{{ me.gender }}</span>
 			<br>
-		</template>
+		</n-list-item>
 		<n-list-item>
 			<n-thing title="Location" v-if="location">
 				<n-space>
@@ -38,6 +42,14 @@
 				</p>
 			</n-thing>
 		</n-list-item>
+		<n-list-item>
+			<n-thing title="Liked users"></n-thing>
+			<n-space>
+				<n-card v-for="user in likedUsers">
+					{{ produceFullName(user.firstName, user.middleName, user.lastName) }}
+				</n-card>
+			</n-space>
+		</n-list-item>
 	</n-list>
 </template>
 
@@ -47,6 +59,7 @@ import { useStore } from "vuex";
 import { useDialog } from "naive-ui";
 import { produceFullName } from "@/utils/produceFullName";
 import { produceAge } from "@/utils/produceAge";
+import userImageService from "@/services/models/users/userImage.service";
 
 const store = useStore();
 const dialog = useDialog();
@@ -58,15 +71,20 @@ const me = ref(null);
 const fullName = ref('');
 const passions = ref([]);
 const location = ref(null);
-const profileImage = ref(null);
+const likedUsers = ref([]);
+const userImage = ref();
 
 
-onMounted(() => loadMe());
+onMounted(() => Promise.all([
+	loadMe(),
+	loadLikedUsers()
+]));
 
 const loadMe = () => {
-	usersService.getMyData().then(response => {
+	usersService.getMyData().then(async response => {
 				me.value = response;
-				console.log(me.value);
+
+				userImage.value = await userImageService.getUserImage(response.id);
 
 				fullName.value = produceFullName(me.value.firstName, me.value.lastName, me.value.middleName);
 
@@ -81,15 +99,16 @@ const loadMe = () => {
 				})
 			}
 	)
+}
 
-	usersService.getMyProfileImage().then(response => {
-		profileImage.value = response;
+const loadLikedUsers = () => {
+	usersService.getLikedUsers().then(response => {
+		response.forEach((user) => {
+			likedUsers.value.push(user);
+		})
 	})
 }
 
-const handleClickProfilePhoto = () => {
-
-}
 
 </script>
 
