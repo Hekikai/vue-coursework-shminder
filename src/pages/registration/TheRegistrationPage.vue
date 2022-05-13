@@ -180,18 +180,18 @@ const passionsRef = ref([]);
 
 
 const model = ref({
-	firstName: 'Artem',
-	middleName: 'Kolesnikov',
-	lastName: 'Sergeevich',
-	dateOfBirth: '2004-01-01',
-	email: 'frontend@mail.ru',
-	password: 'Aaaaaaa1',
-	phone: '9023433935',
+	firstName: '',
+	middleName: '',
+	lastName: '',
+	dateOfBirth: '',
+	email: '',
+	password: '',
+	phone: '',
 	gender: null,
 	country: null,
 	passionsIds: [],
 	locationId: null,
-	about: 'Something about me to have the mock data'
+	about: ''
 });
 
 onMounted(() => mountedFetch());

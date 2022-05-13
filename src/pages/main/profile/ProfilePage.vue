@@ -1,13 +1,13 @@
 <template>
 	<n-spin v-if="!userImage" size="large"/>
-		<n-image
-				v-else
-				:src="userImage"
-				object-fit="cover"
-				width="400"
-				height="200"
-				alt="Profile photo">
-		</n-image>
+	<n-image
+			v-else
+			:src="userImage"
+			object-fit="cover"
+			width="400"
+			height="200"
+			alt="Profile photo">
+	</n-image>
 	<n-list bordered v-if="me">
 		<template #header>
 			Full name: {{ fullName }}
@@ -83,14 +83,10 @@ onMounted(() => Promise.all([
 const loadMe = () => {
 	usersService.getMyData().then(async response => {
 				me.value = response;
-
-				userImage.value = await userImageService.getUserImage(response.id);
-
 				fullName.value = produceFullName(me.value.firstName, me.value.lastName, me.value.middleName);
-
 				passions.value = me.value.passions;
-
 				location.value = me.value.location;
+				userImage.value = await userImageService.getUserImage(response.id);
 			},
 			error => {
 				dialog.error({

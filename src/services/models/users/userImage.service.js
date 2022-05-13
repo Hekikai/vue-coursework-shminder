@@ -21,7 +21,7 @@ class UserImageService {
 
 			return Promise.resolve(`data:${ MIMEType };base64,` + buffer);
 		} catch (error) {
-			return Promise.reject(error);
+			return '//ssl.gstatic.com/accounts/ui/avatar_2x.png';
 		}
 	}
 
