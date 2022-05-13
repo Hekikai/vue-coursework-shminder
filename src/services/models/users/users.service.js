@@ -10,20 +10,16 @@ class UsersService {
 		return handleResponseWithData(axInst.get(`${ this.PATH }/me`));
 	}
 
-	getMyProfileImage() {
-		return handleResponseWithData(axInst.get(`${ this.PATH }/images`, {
-			headers: {
-				accept: "image/jpeg"
-			}
-		}));
-	}
-
 	registerUser(dto) {
 		return handleResponseWithData(axInst.post(`${ this.PATH }/registration`, dto));
 	}
 
 	getUsers(genderToSearch) {
-		return handleResponseWithData(axInst.get(`${ this.PATH }/?gender=${ genderToSearch }`));
+		return handleResponseWithData(axInst.get(`${ this.PATH }/`, {
+			params: {
+				gender: genderToSearch
+			}
+		}));
 	}
 
 	likeUser(id) {
@@ -38,6 +34,10 @@ class UsersService {
 				victimId: id
 			}
 		}))
+	}
+
+	getLikedUsers() {
+		return handleResponseWithData(axInst.get(`${this.PATH}/likes/from`));
 	}
 
 }

@@ -8,12 +8,12 @@
 
 <script setup>
 import StatisticPageMenu from './StatisticPageMenu';
-import { ref } from "vue";
+import { ref, shallowRef } from "vue";
 import tabs from './components/index';
 
-const activeTab = ref(null);
+const activeTab = shallowRef(null);
 const handleSelectOption = (tabIndex) => {
-	activeTab.value = tabs[tabIndex]
+	activeTab.value = tabs[tabIndex];
 };
 
 </script>

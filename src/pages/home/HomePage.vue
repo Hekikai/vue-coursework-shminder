@@ -1,13 +1,25 @@
 <template>
 	<section class="section">
-		<n-card v-for="user in usersToEstimate" class="section__container"
+		<n-spin v-if="usersToEstimate.length === 0" size="large"/>
+		<n-card v-else
+						v-for="user in usersToEstimate"
+						class="section__container"
 						:title="produceCardTitle(user)">
 			<template #cover>
 				<img class="section__image"
-						 src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg">
+						 :src="user.image"
+						 alt="User photo">
 			</template>
+			<n-thing :title="`Gender: ${user.gender}`"></n-thing>
 			<n-card class="section__card">
-				<n-button class="section__badge" v-for="passion in user.passions">
+				<n-button
+						v-for="passion in user.passions"
+						strong
+						secondary
+						round
+						type="primary"
+						class="section__badge"
+				>
 					{{ passion.name }}
 				</n-button>
 			</n-card>
@@ -15,22 +27,34 @@
 				{{ user.about || 'There is no description ' }}
 			</n-card>
 			<n-space justify="space-between">
-				<n-button @click="likeThisOne(user.id)">Like</n-button>
-				<n-button @click="unlikeThisOne(user.id)">Dislike</n-button>
+				<n-button
+						@click="likeThisOne(user.id, user.firstName)"
+						type="success">
+					Like
+				</n-button>
+				<n-button
+						@click="unlikeThisOne(user.id, user.firstName)"
+						type="error">
+					Dislike
+				</n-button>
 			</n-space>
 		</n-card>
 	</section>
 </template>
 
 <script setup>
-import {  inject, onMounted, ref } from "vue";
-import { useDialog } from "naive-ui";
+import { inject, onMounted, ref, shallowRef } from "vue";
+import { useDialog, useMessage } from "naive-ui";
 import { produceCardTitle } from "@/utils/produceCardTitle";
 
 const usersService = inject('usersService');
 const tokenService = inject('tokenService');
+const userImageService = inject('userImageService');
+
 const dialog = useDialog();
+const message = useMessage();
 const userInfo = tokenService.getUser();
+
 const genderToSearch = userInfo.gender === 'MALE'
 		? 'FEMALE'
 		: 'FEMALE'
@@ -39,18 +63,46 @@ const genderToSearch = userInfo.gender === 'MALE'
 
 const usersToEstimate = ref([]);
 
-//TODO: notification when like is ok not ok
-const likeThisOne = (id) => {
-	usersService.likeUser(id).then(console.log)
+const likeThisOne = (id, firstName) => {
+	usersService.likeUser(id).then(response => {
+		message.info(
+				`You've liked ${ firstName }!`,
+				{
+					closable: true,
+					duration: 2000
+				}
+		)
+	}, error => {
+		dialog.error({
+			title: 'Failed to like user',
+			content: error
+		})
+	})
 }
 
-//TODO: notification when unlike is ok or not ok
-const unlikeThisOne = (id) => usersService.unlikeUser(id).then(console.log)
+const unlikeThisOne = (id, firstName) => {
+	usersService.unlikeUser(id).then(response => {
+		message.warning(
+				`You've unliked ${ firstName }!`,
+				{
+					closable: true,
+					duration: 2000
+				}
+		)
+	}, error => {
+		dialog.error({
+			title: 'Failed to unlike user',
+			content: error
+		})
+	})
+}
 
 const loadUsers = () => {
-	usersService.getUsers('MALE').then(response => {
-				console.log(response);
-				response.forEach(user => usersToEstimate.value.push(user));
+	usersService.getUsers(genderToSearch).then(response => {
+				response.forEach(async user => {
+					user.image = await userImageService.getUserImage(user.id);
+					usersToEstimate.value.push(user)
+				});
 			},
 			error => {
 				dialog.error({
@@ -69,7 +121,7 @@ onMounted(() => loadUsers())
 .section {
 	display: flex;
 	gap: 20px;
-	flex-direction: column;
+	flex-wrap: wrap;
 
 	&__card {
 		margin-top: 20px;

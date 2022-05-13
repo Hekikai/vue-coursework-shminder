@@ -3,6 +3,7 @@ import PassionsService from "@/services/models/passions/passions.service";
 import LocationsService from "@/services/models/locations/locations.service";
 import CountriesService from "@/services/models/countries/countries.service";
 import TokenService from "@/services/auth/token.service";
+import UserImageService from "@/services/models/users/userImage.service";
 
 export const registeredServices = [
 	{
@@ -24,5 +25,9 @@ export const registeredServices = [
 	{
 		injectKey: 'tokenService',
 		service: TokenService
+	},
+	{
+		injectKey: 'userImageService',
+		service: UserImageService
 	}
 ]
