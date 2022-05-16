@@ -183,7 +183,7 @@ const model = ref({
 	firstName: '',
 	middleName: '',
 	lastName: '',
-	dateOfBirth: '',
+	dateOfBirth: '2004-01-01',
 	email: '',
 	password: '',
 	phone: '',
