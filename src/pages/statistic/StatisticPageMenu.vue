@@ -47,37 +47,28 @@ const updateTab = (tab) => emit('selectTab', tab);
 const menuOptions = [
 	{
 		label: "Countries",
-		// key: markRaw(CountriesTab),
 		key: 0,
 		icon: renderIcon(CountryIcon),
 	},
 	{
-		label: "Passions",
-		// key: markRaw(PassionsTab),
+		label: "Locations",
 		key: 1,
-
-		icon: renderIcon(PassionIcon),
+		icon: renderIcon(LocationIcon),
 	},
 	{
 		label: "Passions by country",
-		// key: markRaw(PassionsByCountryTab),
 		key: 2,
-
 		icon: renderIcon(PassionIcon),
 	},
 	{
 		label: "Max passions by countries",
-		// key: markRaw(MaxPassionsTab),
 		key: 3,
-
 		icon: renderIcon(PassionIcon),
 	},
 	{
-		label: "Locations",
-		// key: markRaw(LocationsTab),
+		label: "Passions",
 		key: 4,
-
-		icon: renderIcon(LocationIcon),
+		icon: renderIcon(PassionIcon),
 	},
 ]
 
